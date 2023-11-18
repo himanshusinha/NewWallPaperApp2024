@@ -1,15 +1,15 @@
+import React, {useState} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
   ActivityIndicator,
-  StyleSheet,
+  ToastAndroid,
 } from 'react-native';
-import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToFavourite} from '../redux/actions';
 import FastImage from 'react-native-fast-image';
+import ItemHomeStyles from '../styles.jsx/ItemHomeStyles';
 
 const ItemHome = ({item}) => {
   const dispatch = useDispatch();
@@ -19,34 +19,24 @@ const ItemHome = ({item}) => {
     favoriteItem => favoriteItem.id === item.id,
   );
 
-  const {width} = Dimensions.get('window');
-  const numColumns = width >= 400 ? 2 : 2; // You can adjust the number of columns
-  const itemWidth = width / numColumns;
-
   const [loading, setLoading] = useState(true);
 
   const addItem = item => {
     dispatch(addToFavourite(item));
+    ToastAndroid.showWithGravity(
+      'Wallpaper added to favourites',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+    );
   };
 
   return (
-    <View
-      style={{
-        width: itemWidth - 10,
-        borderColor: 'grey',
-        borderWidth: 0.3,
-        borderRadius: 10,
-        marginVertical: 10,
-        marginHorizontal: 5,
-        backgroundColor: 'white',
-      }}>
+    <View style={ItemHomeStyles.container}>
       <TouchableOpacity
-        onPress={() => {
-          addItem(item);
-        }}
-        style={{padding: 10, alignItems: 'flex-end'}}>
+        onPress={() => addItem(item)}
+        style={ItemHomeStyles.favoriteButtonContainer}>
         <FastImage
-          style={{width: 20, height: 20}}
+          style={ItemHomeStyles.favoriteButtonIcon}
           source={
             isFavorite
               ? require('../assets/images/heart_fill.png')
@@ -56,7 +46,7 @@ const ItemHome = ({item}) => {
         />
       </TouchableOpacity>
       <FastImage
-        style={{width: '100%', height: 220}}
+        style={ItemHomeStyles.image}
         source={{uri: item.src.original}}
         resizeMode={FastImage.resizeMode.cover}
         onLoadStart={() => setLoading(true)}
@@ -64,28 +54,14 @@ const ItemHome = ({item}) => {
         onLoadEnd={() => setLoading(false)}
       />
       {loading && (
-        <View
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'white',
-          }}>
+        <View style={ItemHomeStyles.loadingOverlay}>
           <ActivityIndicator size="small" color="black" />
         </View>
       )}
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Text style={{color: 'black', fontWeight: '500'}}>
-            {item.photographer} {''}
+      <View style={ItemHomeStyles.photographerContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={ItemHomeStyles.photographerText}>
+            {item.photographer}{' '}
           </Text>
         </View>
       </View>

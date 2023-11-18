@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {View, SafeAreaView, FlatList, ActivityIndicator} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
 import ItemHome from '../../components/ItemHome';
 import FavouriteScreen from '../Favourite/FavouriteScreen';
 import CategoriesScreen from '../Categories/CategoriesScreen';
 import SearchScreen from '../Search/SearchScreen';
+import HomeScreenStyles from '../../styles.jsx/HomeScreenStyles';
 
 let per_page = 20;
 
@@ -65,7 +65,7 @@ const HomeScreen = () => {
 
   const renderFooter = () => {
     return loading ? (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={HomeScreenStyles.loadingIndicatorContainer}>
         <ActivityIndicator size="large" color="black" />
       </View>
     ) : null;
@@ -73,8 +73,9 @@ const HomeScreen = () => {
 
   const Tab1Screen = () => {
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={HomeScreenStyles.flatListContainer}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={data}
           renderItem={renderItem}
           onEndReached={onEndReached}
@@ -89,40 +90,34 @@ const HomeScreen = () => {
 
   const Tab2Screen = () => {
     return (
-      <View style={{flex: 1}}>
+      <View style={HomeScreenStyles.container}>
         <CategoriesScreen />
       </View>
     );
   };
   const Tab3Screen = () => {
     return (
-      <View>
+      <View style={HomeScreenStyles.container}>
         <FavouriteScreen />
       </View>
     );
   };
   const Tab4Screen = () => {
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={HomeScreenStyles.flatListContainer}>
         <SearchScreen />
       </View>
     );
   };
-  const Tab = createMaterialTopTabNavigator();
 
+  const Tab = createMaterialTopTabNavigator();
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={HomeScreenStyles.container}>
       <Tab.Navigator
         screenOptions={{
-          tabBarLabelStyle: {
-            color: 'black',
-          },
-          tabBarIndicatorStyle: {
-            backgroundColor: 'black',
-          },
-          tabBarStyle: {
-            backgroundColor: 'white',
-          },
+          tabBarLabelStyle: HomeScreenStyles.tabBarLabel,
+          tabBarIndicatorStyle: HomeScreenStyles.tabBarIndicator,
+          tabBarStyle: HomeScreenStyles.tabBar,
         }}>
         <Tab.Screen name="Home" component={Tab1Screen} />
         <Tab.Screen name="Category" component={Tab2Screen} />

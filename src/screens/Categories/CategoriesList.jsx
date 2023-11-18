@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useRoute} from '@react-navigation/core';
 import ItemCategoriesList from '../../components/ItemCategoriesList';
+import CategoriesListStyles from '../../styles.jsx/CategoriesListStyles';
 
 let per_page = 20;
 
@@ -17,6 +18,7 @@ const CategoriesList = () => {
   const [loading, setLoading] = useState(false);
   const routes = useRoute();
   const categories = routes?.params?.categories;
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -68,20 +70,21 @@ const CategoriesList = () => {
 
   const renderFooter = () => {
     return loading ? (
-      <View style={{padding: 10, alignItems: 'center'}}>
-        <ActivityIndicator size="medium" color="black" />
+      <View style={CategoriesListStyles.footerContainer}>
+        <ActivityIndicator
+          size={CategoriesListStyles.loadingIndicator.size}
+          color={CategoriesListStyles.loadingIndicator.color}
+        />
       </View>
     ) : null;
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={CategoriesListStyles.container}>
       <FlatList
         ListHeaderComponent={() => (
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: 'black', fontSize: 20, fontWeight: 'bold'}}>
-              {categories}
-            </Text>
+          <View style={CategoriesListStyles.header}>
+            <Text style={CategoriesListStyles.headerText}>{categories}</Text>
           </View>
         )}
         data={data}

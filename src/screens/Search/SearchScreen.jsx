@@ -1,14 +1,14 @@
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   FlatList,
   Image,
   TextInput,
   ActivityIndicator,
-  Text,
 } from 'react-native';
-import React, {useEffect, useState, useCallback} from 'react';
 import ItemSearch from '../../components/ItemSearch';
 import LottieView from 'lottie-react-native';
+import SearchScreenStyles from '../../styles.jsx/SearchScreenStyles';
 
 let per_page = 20;
 
@@ -74,7 +74,7 @@ const SearchScreen = () => {
 
   const renderFooter = () => {
     return loading ? (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={SearchScreenStyles.container}>
         <ActivityIndicator size="large" color="white" />
       </View>
     ) : null;
@@ -86,23 +86,11 @@ const SearchScreen = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={SearchScreenStyles.container}>
       <View>
-        <View
-          style={{
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: 'white',
-            flexDirection: 'row',
-            borderWidth: 0.5,
-            borderColor: 'black',
-            alignItems: 'center',
-            paddingStart: 20,
-            marginVertical: 20,
-            marginHorizontal: 10,
-          }}>
+        <View style={SearchScreenStyles.searchInputContainer}>
           <Image
-            style={{width: 20, height: 20}}
+            style={SearchScreenStyles.searchIcon}
             source={require('../../assets/images/search.png')}
           />
           <TextInput
@@ -110,20 +98,19 @@ const SearchScreen = () => {
             onEndEditing={clearSearchData}
             value={query}
             placeholder="Search Photos "
-            style={{paddingStart: 20, fontSize: 16}}
+            style={SearchScreenStyles.searchInput}
           />
         </View>
       </View>
 
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={SearchScreenStyles.container}>
         {noDataFound ? (
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={SearchScreenStyles.noDataFoundContainer}>
             <LottieView
               source={require('../../assets/no_data_found.json')}
               autoPlay
               loop
-              style={{width: 300, height: 300}}
+              style={SearchScreenStyles.lottieView}
             />
           </View>
         ) : (

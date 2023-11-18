@@ -1,49 +1,41 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {View, Text, TouchableOpacity, ToastAndroid} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {removeFromFavourite} from '../redux/actions';
 import FastImage from 'react-native-fast-image';
+import ItemFavouritesStyles from '../styles.jsx/ItemFavouritesStyles';
 
 const ItemFavourites = ({item, index}) => {
   const dispatch = useDispatch();
+
   const removeItem = () => {
     dispatch(removeFromFavourite(index));
+    ToastAndroid.showWithGravity(
+      'Wallpaper removed from favourites',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+    );
   };
 
   return (
-    <View
-      style={{
-        borderColor: 'grey',
-        borderWidth: 0.3,
-        borderRadius: 10,
-        marginVertical: 10,
-        marginHorizontal: 10,
-      }}>
+    <View style={ItemFavouritesStyles.container}>
       <TouchableOpacity
         onPress={removeItem}
-        style={{padding: 10, alignItems: 'flex-end'}}>
+        style={ItemFavouritesStyles.removeButtonContainer}>
         <FastImage
-          style={{width: 20, height: 20}}
+          style={ItemFavouritesStyles.removeButtonIcon}
           source={require('../assets/images/heart.png')}
           resizeMode={FastImage.resizeMode.contain}
         />
       </TouchableOpacity>
       <FastImage
-        style={{width: '100%', height: 220}}
+        style={ItemFavouritesStyles.image}
         source={{uri: item.src.original}}
         resizeMode={FastImage.resizeMode.cover}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Text style={{color: 'black', fontWeight: '500'}}>
+      <View style={ItemFavouritesStyles.photographerContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={ItemFavouritesStyles.photographerText}>
             {item.photographer}
           </Text>
         </View>

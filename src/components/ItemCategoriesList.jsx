@@ -1,16 +1,16 @@
+import React, {useState} from 'react';
 import {
-  View,
-  Text,
   TouchableOpacity,
+  Text,
+  View,
   Dimensions,
   ActivityIndicator,
-  StyleSheet,
 } from 'react-native';
-import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToFavourite} from '../redux/actions';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
+import ItemCategoriesListStyles from '../styles.jsx/ItemCategoriesListStyles';
 
 const ItemCategoriesList = ({item, data}) => {
   const dispatch = useDispatch();
@@ -26,9 +26,11 @@ const ItemCategoriesList = ({item, data}) => {
 
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+
   const addItem = item => {
     dispatch(addToFavourite(item));
   };
+
   const navigateToDetails = () => {
     navigation.navigate('CategoriesListDetails', {
       selectedImage: item.src.original,
@@ -36,25 +38,19 @@ const ItemCategoriesList = ({item, data}) => {
       selectedTexts: data.map(dataItem => dataItem.photographer),
     });
   };
+
   return (
     <TouchableOpacity
       onPress={navigateToDetails}
       activeOpacity={0.3}
-      style={{
-        width: itemWidth - 10,
-        borderColor: 'grey',
-        borderWidth: 0.3,
-        borderRadius: 10,
-        marginVertical: 10,
-        marginHorizontal: 5,
-      }}>
+      style={[ItemCategoriesListStyles.container, {width: itemWidth - 10}]}>
       <TouchableOpacity
         onPress={() => {
           addItem(item);
         }}
-        style={{padding: 10, alignItems: 'flex-end'}}>
+        style={ItemCategoriesListStyles.favoriteButtonContainer}>
         <FastImage
-          style={{width: 20, height: 20}}
+          style={ItemCategoriesListStyles.favoriteIcon}
           source={
             isFavorite
               ? require('../assets/images/heart_fill.png')
@@ -64,7 +60,7 @@ const ItemCategoriesList = ({item, data}) => {
         />
       </TouchableOpacity>
       <FastImage
-        style={{width: '100%', height: 220}}
+        style={ItemCategoriesListStyles.image}
         source={{uri: item.src.original}}
         resizeMode={FastImage.resizeMode.cover}
         onLoadStart={() => setLoading(true)}
@@ -72,27 +68,13 @@ const ItemCategoriesList = ({item, data}) => {
         onLoadEnd={() => setLoading(false)}
       />
       {loading && (
-        <View
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'white',
-          }}>
+        <View style={ItemCategoriesListStyles.loadingOverlay}>
           <ActivityIndicator size="small" color="black" />
         </View>
       )}
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Text style={{color: 'black', fontWeight: '500'}}>
+      <View style={ItemCategoriesListStyles.photographerContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={ItemCategoriesListStyles.photographerText}>
             {item.photographer} {''}
           </Text>
         </View>
