@@ -18,6 +18,7 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import RNFetchBlob from 'rn-fetch-blob';
 import Share from 'react-native-share';
 import RNFS from 'react-native-fs';
+import styles from '../../styles.jsx/SearchScreenDetailsStyles';
 
 const SearchScreensDetails = () => {
   const route = useRoute();
@@ -52,7 +53,37 @@ const SearchScreensDetails = () => {
     setCurrentIndex(index);
   };
 
+  const requestStoragePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message: 'App needs access to memory to download the file',
+        },
+      );
+
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+        Alert.alert(
+          'Permission Denied!',
+          'You need to give storage permission to download the file',
+        );
+        return false;
+      }
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  };
+
   const actualDownload = async () => {
+    const storagePermissionGranted = await requestStoragePermission();
+
+    if (!storagePermissionGranted) {
+      return;
+    }
+
     setLoading(true);
 
     const currentImage = selectedImages[currentIndex];
@@ -68,45 +99,34 @@ const SearchScreensDetails = () => {
         fileCache: true,
       }).fetch('GET', currentImage, {});
 
-      setLoading(false);
-      ToastAndroid.showWithGravity(
-        'Your file has been downloaded!',
-        ToastAndroid.SHORT,
-        ToastAndroid.BOTTOM,
-      );
-
-      // Open the downloaded file
+      if (response.info().status === 200) {
+        setLoading(false);
+        ToastAndroid.showWithGravity(
+          'Your file has been downloaded!',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+        );
+        // Open the downloaded file
+      } else {
+        setLoading(false);
+        console.error(
+          'Failed to download image. Status:',
+          response.info().status,
+        );
+      }
     } catch (error) {
       setLoading(false);
       console.error('Error downloading image', error);
     }
   };
-  const downloadFile = async () => {
-    try {
-      if (Platform.OS === 'android') {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Storage Permission',
-            message: 'App needs access to memory to download the file',
-          },
-        );
 
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          Alert.alert(
-            'Permission Denied!',
-            'You need to give storage permission to download the file',
-          );
-          return;
-        }
-      }
-
-      await actualDownload();
-    } catch (err) {
-      console.error(err);
-    }
-  };
   const handleShare = async () => {
+    const storagePermissionGranted = await requestStoragePermission();
+
+    if (!storagePermissionGranted) {
+      return;
+    }
+
     try {
       const currentImage = selectedImages[currentIndex];
 
@@ -209,80 +229,5 @@ const SearchScreensDetails = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative',
-    backgroundColor: 'black',
-  },
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: '50%',
-  },
-  image: {
-    width: Dimensions.get('window').width,
-    height: '100%',
-  },
-  contentContainer: {
-    ...StyleSheet.absoluteFillObject,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    backgroundColor: 'transparent',
-  },
-  closeLineContainer: {
-    alignSelf: 'center',
-  },
-  closeLine: {
-    width: 60,
-    textAlign: 'center',
-    alignItems: 'center',
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: 'white',
-    marginTop: 9,
-  },
-  btnContainer: {
-    height: 50,
-    width: 50,
-    marginHorizontal: 10,
-  },
-  headerText: {
-    marginTop: 10,
-    marginLeft: 40,
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  buttonListContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginVertical: 10,
-  },
-  whiteText: {
-    color: 'white',
-    fontSize: 15,
-    marginLeft: 10,
-  },
-  wallpaperOption: {
-    marginHorizontal: 10,
-    height: 45,
-    display: 'flex',
-    flexDirection: 'row',
-    paddingLeft: 10,
-    gap: 55,
-    alignItems: 'center',
-    marginBottom: 10,
-    backgroundColor: '#36414F',
-    borderRadius: 20,
-  },
-});
 
 export default SearchScreensDetails;
