@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useRoute} from '@react-navigation/core';
 import ItemCategoriesList from '../../components/ItemCategoriesList';
+import {useSelector} from 'react-redux';
 
 let per_page = 20;
 
@@ -16,6 +17,7 @@ const CategoriesList = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const routes = useRoute();
+  const theme = useSelector(state => state.themeReducers);
   const categories = routes?.params?.categories;
   useEffect(() => {
     fetchData();
@@ -61,7 +63,7 @@ const CategoriesList = () => {
   );
 
   const onEndReached = () => {
-    if (!loading) {
+    if (loading) {
       fetchData();
     }
   };
@@ -69,17 +71,23 @@ const CategoriesList = () => {
   const renderFooter = () => {
     return loading ? (
       <View style={{padding: 10, alignItems: 'center'}}>
-        <ActivityIndicator size="medium" color="black" />
+        <ActivityIndicator size="medium" color={theme ? 'white' : 'black'} />
       </View>
     ) : null;
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme ? 'black' : 'white'}}>
       <FlatList
         ListHeaderComponent={() => (
           <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: 'black', fontSize: 20, fontWeight: 'bold'}}>
+            <Text
+              style={{
+                color: theme ? 'white' : 'black',
+                fontSize: 20,
+                fontWeight: 'bold',
+                marginTop: 20,
+              }}>
               {categories}
             </Text>
           </View>

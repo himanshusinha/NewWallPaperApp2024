@@ -10,17 +10,19 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToFavourite} from '../redux/actions';
 import FastImage from 'react-native-fast-image';
+import colors from '../constants/colors';
 
 const ItemHome = ({item}) => {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.reducers);
+  const theme = useSelector(state => state.themeReducers);
 
   const isFavorite = favorites.some(
     favoriteItem => favoriteItem.id === item.id,
   );
 
   const {width} = Dimensions.get('window');
-  const numColumns = width >= 400 ? 2 : 2; // You can adjust the number of columns
+  const numColumns = width >= 400 ? 2 : 2;
   const itemWidth = width / numColumns;
 
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,7 @@ const ItemHome = ({item}) => {
         borderRadius: 10,
         marginVertical: 10,
         marginHorizontal: 5,
-        backgroundColor: 'white',
+        backgroundColor: theme ? 'black' : 'white',
       }}>
       <TouchableOpacity
         onPress={() => {
@@ -49,7 +51,11 @@ const ItemHome = ({item}) => {
           style={{width: 20, height: 20}}
           source={
             isFavorite
-              ? require('../assets/images/heart_fill.png')
+              ? theme
+                ? require('../assets/images/heart_fill.png')
+                : require('../assets/images/heart_fill.png')
+              : theme
+              ? require('../assets/images/heart_fill_light.png')
               : require('../assets/images/heart.png')
           }
           resizeMode={FastImage.resizeMode.contain}
@@ -69,9 +75,9 @@ const ItemHome = ({item}) => {
             ...StyleSheet.absoluteFillObject,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'white',
+            backgroundColor: theme ? 'black' : 'white',
           }}>
-          <ActivityIndicator size="small" color="black" />
+          <ActivityIndicator size="small" color={theme ? 'white' : 'black'} />
         </View>
       )}
       <View
@@ -84,7 +90,7 @@ const ItemHome = ({item}) => {
           style={{
             flexDirection: 'row',
           }}>
-          <Text style={{color: 'black', fontWeight: '500'}}>
+          <Text style={{color: theme ? 'white' : 'black', fontWeight: '500'}}>
             {item.photographer} {''}
           </Text>
         </View>

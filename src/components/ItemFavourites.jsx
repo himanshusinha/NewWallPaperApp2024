@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image';
 
 const ItemFavourites = ({item, index}) => {
   const dispatch = useDispatch();
+  const theme = useSelector(state => state.themeReducers);
   const removeItem = () => {
     dispatch(removeFromFavourite(index));
   };
@@ -24,7 +25,11 @@ const ItemFavourites = ({item, index}) => {
         style={{padding: 10, alignItems: 'flex-end'}}>
         <FastImage
           style={{width: 20, height: 20}}
-          source={require('../assets/images/heart.png')}
+          source={
+            theme
+              ? require('../assets/images/heart_fill_light.png')
+              : require('../assets/images/heart.png')
+          }
           resizeMode={FastImage.resizeMode.contain}
         />
       </TouchableOpacity>
@@ -43,7 +48,7 @@ const ItemFavourites = ({item, index}) => {
           style={{
             flexDirection: 'row',
           }}>
-          <Text style={{color: 'black', fontWeight: '500'}}>
+          <Text style={{color: theme ? 'white' : 'black', fontWeight: '500'}}>
             {item.photographer}
           </Text>
         </View>

@@ -1,4 +1,4 @@
-import {ADD_FAVOURITE, REMOVE_FAVOURITE} from './actionTypes';
+import {ADD_FAVOURITE, CHANGE_THEME, REMOVE_FAVOURITE} from './actionTypes';
 
 export const reducers = (state = [], action) => {
   switch (action.type) {
@@ -21,6 +21,15 @@ export const reducers = (state = [], action) => {
       });
       return deleteArray;
 
+    default:
+      return state;
+  }
+};
+
+export const themeReducers = (state = false, action) => {
+  switch (action.type) {
+    case CHANGE_THEME:
+      return action.payload;
     default:
       return state;
   }

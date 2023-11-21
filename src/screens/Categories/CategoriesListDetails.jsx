@@ -15,6 +15,8 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import RNFetchBlob from 'rn-fetch-blob';
 import Share from 'react-native-share';
 import RNFS from 'react-native-fs';
+import {useSelector} from 'react-redux';
+let theme = '';
 const CategoriesListDetails = () => {
   const route = useRoute();
   const [selectedImages, setSelectedImages] = useState([]);
@@ -23,7 +25,7 @@ const CategoriesListDetails = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const flatListRef = useRef(null);
-
+  theme = useSelector(state => state.themeReducers);
   useEffect(() => {
     setSelectedImages(route.params.selectedImages || []);
   }, [route.params.selectedImages]);
@@ -173,7 +175,7 @@ const CategoriesListDetails = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{backgroundColor: theme ? 'black' : 'white'}}>
       <SwiperFlatList
         ref={flatListRef}
         data={selectedImages}
@@ -213,7 +215,7 @@ const CategoriesListDetails = () => {
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#0e1116',
+              backgroundColor: theme ? 'black' : 'white',
               borderRadius: 50,
               borderWidth: 3,
               borderColor: 'white',
@@ -224,7 +226,11 @@ const CategoriesListDetails = () => {
           ) : (
             <Image
               style={{width: 20, height: 20}}
-              source={require('../../assets/images/download.png')}
+              source={
+                theme
+                  ? require('../../assets/images/download_light.png')
+                  : require('../../assets/images/downloads.png')
+              }
             />
           )}
         </TouchableOpacity>
@@ -239,7 +245,7 @@ const CategoriesListDetails = () => {
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#0e1116',
+              backgroundColor: theme ? 'black' : 'white',
               borderRadius: 50,
               borderWidth: 3,
               borderColor: 'white',
@@ -247,7 +253,11 @@ const CategoriesListDetails = () => {
           ]}>
           <Image
             style={{width: 20, height: 20}}
-            source={require('../../assets/images/share.png')}
+            source={
+              theme
+                ? require('../../assets/images/share_light.png')
+                : require('../../assets/images/share.png')
+            }
           />
         </TouchableOpacity>
       </View>
@@ -259,7 +269,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    backgroundColor: 'black',
   },
   slide: {
     flex: 1,
@@ -280,7 +289,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: theme ? 'white' : 'black',
   },
   closeLineContainer: {
     alignSelf: 'center',
@@ -325,7 +334,7 @@ const styles = StyleSheet.create({
     gap: 55,
     alignItems: 'center',
     marginBottom: 10,
-    backgroundColor: '#36414F',
+    backgroundColor: theme ? 'light' : 'black',
     borderRadius: 20,
   },
 });

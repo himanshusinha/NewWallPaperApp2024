@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 const ItemCategoriesList = ({item, data}) => {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.reducers);
-
+  const theme = useSelector(state => state.themeReducers);
   const isFavorite = favorites.some(
     favoriteItem => favoriteItem.id === item.id,
   );
@@ -57,7 +57,11 @@ const ItemCategoriesList = ({item, data}) => {
           style={{width: 20, height: 20}}
           source={
             isFavorite
-              ? require('../assets/images/heart_fill.png')
+              ? theme
+                ? require('../assets/images/heart_fill.png')
+                : require('../assets/images/heart_fill.png')
+              : theme
+              ? require('../assets/images/heart_fill_light.png')
               : require('../assets/images/heart.png')
           }
           resizeMode={FastImage.resizeMode.contain}
@@ -77,9 +81,9 @@ const ItemCategoriesList = ({item, data}) => {
             ...StyleSheet.absoluteFillObject,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'white',
+            backgroundColor: theme ? 'black' : 'white',
           }}>
-          <ActivityIndicator size="small" color="black" />
+          <ActivityIndicator size="small" color={theme ? 'white' : 'black'} />
         </View>
       )}
       <View
@@ -92,7 +96,7 @@ const ItemCategoriesList = ({item, data}) => {
           style={{
             flexDirection: 'row',
           }}>
-          <Text style={{color: 'black', fontWeight: '500'}}>
+          <Text style={{color: theme ? 'white' : 'black', fontWeight: '500'}}>
             {item.photographer} {''}
           </Text>
         </View>

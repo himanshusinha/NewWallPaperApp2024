@@ -1,4 +1,4 @@
-import {Dimensions, FlatList, SafeAreaView, View} from 'react-native';
+import {Dimensions, FlatList, SafeAreaView, Text, View} from 'react-native';
 import React, {useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import ItemFavourites from '../../components/ItemFavourites';
@@ -6,7 +6,7 @@ import LottieView from 'lottie-react-native';
 
 const FavouriteScreen = () => {
   const items = useSelector(state => state.reducers);
-
+  const theme = useSelector(state => state.themeReducers);
   const renderItem = useMemo(() => {
     return ({item, index}) => {
       return <ItemFavourites item={item} index={index} />;
@@ -20,17 +20,20 @@ const FavouriteScreen = () => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <LottieView
-          source={require('../../assets/no_data_found.json')}
-          autoPlay
-          loop
-          style={{width: 300, height: 300}}
-        />
+        <Text
+          style={{
+            color: theme ? 'white' : 'black',
+            fontSize: 18,
+            fontWeight: 'bold',
+          }}>
+          No Favourites
+        </Text>
       </View>
     );
   };
   return (
-    <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
+    <SafeAreaView
+      style={{height: '100%', backgroundColor: theme ? 'black' : 'white'}}>
       <FlatList
         data={items}
         renderItem={renderItem}

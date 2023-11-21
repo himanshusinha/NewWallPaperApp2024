@@ -9,6 +9,7 @@ import {
 import React, {useEffect, useState, useCallback} from 'react';
 import ItemSearch from '../../components/ItemSearch';
 import LottieView from 'lottie-react-native';
+import {useSelector} from 'react-redux';
 
 let per_page = 20;
 
@@ -18,7 +19,7 @@ const SearchScreen = () => {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
   const [noDataFound, setNoDataFound] = useState(false);
-
+  const theme = useSelector(state => state.themeReducers);
   useEffect(() => {
     fetchData();
   }, [data]);
@@ -75,7 +76,7 @@ const SearchScreen = () => {
   const renderFooter = () => {
     return loading ? (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" color="white" />
+        <ActivityIndicator size="large" color={theme ? 'white' : 'black'} />
       </View>
     ) : null;
   };
@@ -92,10 +93,10 @@ const SearchScreen = () => {
           style={{
             height: 50,
             borderRadius: 10,
-            backgroundColor: 'white',
+            backgroundColor: theme ? 'black' : 'white',
             flexDirection: 'row',
             borderWidth: 0.5,
-            borderColor: 'black',
+            borderColor: theme ? 'white' : 'black',
             alignItems: 'center',
             paddingStart: 20,
             marginVertical: 20,
@@ -103,28 +104,39 @@ const SearchScreen = () => {
           }}>
           <Image
             style={{width: 20, height: 20}}
-            source={require('../../assets/images/search.png')}
+            source={
+              theme
+                ? require('../../assets/images/search_white.png')
+                : require('../../assets/images/search.png')
+            }
           />
           <TextInput
             onChangeText={text => setQuery(text)}
             onEndEditing={clearSearchData}
             value={query}
+            placeholderTextColor={theme ? 'white' : 'black'}
             placeholder="Search Photos "
-            style={{paddingStart: 20, fontSize: 16}}
+            style={{
+              paddingStart: 20,
+              fontSize: 16,
+              color: theme ? 'white' : 'black',
+            }}
           />
         </View>
       </View>
 
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{flex: 1, backgroundColor: theme ? 'black' : 'white'}}>
         {noDataFound ? (
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <LottieView
-              source={require('../../assets/no_data_found.json')}
-              autoPlay
-              loop
-              style={{width: 300, height: 300}}
-            />
+            <Text
+              style={{
+                color: theme ? 'white' : 'black',
+                fontSize: 18,
+                fontWeight: 'bold',
+              }}>
+              No Data Found
+            </Text>
           </View>
         ) : (
           <FlatList

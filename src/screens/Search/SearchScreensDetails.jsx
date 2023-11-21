@@ -18,7 +18,8 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import RNFetchBlob from 'rn-fetch-blob';
 import Share from 'react-native-share';
 import RNFS from 'react-native-fs';
-
+import {useSelector} from 'react-redux';
+let theme = '';
 const SearchScreensDetails = () => {
   const route = useRoute();
   const [selectedImages, setSelectedImages] = useState([]);
@@ -27,7 +28,7 @@ const SearchScreensDetails = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef(null);
   const [progress, setProgress] = useState(false);
-
+  theme = useSelector(state => state.themeReducers);
   useEffect(() => {
     setSelectedImages(route.params.selectedImages || []);
   }, [route.params.selectedImages]);
@@ -117,7 +118,7 @@ const SearchScreensDetails = () => {
         title: 'Share Image',
         subject: 'Download image and set as your wallpaper ',
         message: 'Download image and set as your wallpaper',
-        type: 'image/jpeg', // Change the type based on your image format
+        type: 'image/jpeg',
         url: `data:image/jpeg;base64,${base64Data}`,
       };
 
@@ -128,7 +129,8 @@ const SearchScreensDetails = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, (backgroundColor = theme ? 'black' : 'theme')]}>
       <SwiperFlatList
         ref={flatListRef}
         data={selectedImages}
@@ -156,6 +158,7 @@ const SearchScreensDetails = () => {
           alignItems: 'center',
           justifyContent: 'center',
           padding: 20,
+          backgroundColor: theme ? 'black' : 'white',
         }}>
         <TouchableOpacity
           onPress={actualDownload}
@@ -168,18 +171,22 @@ const SearchScreensDetails = () => {
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#0e1116',
+              backgroundColor: theme ? 'white' : 'black',
               borderRadius: 50,
               borderWidth: 3,
-              borderColor: 'white',
+              borderColor: 'grey',
             },
           ]}>
           {progress ? (
-            <ActivityIndicator size="large" color={'white'} />
+            <ActivityIndicator size="large" color={theme ? 'white' : 'black'} />
           ) : (
             <Image
               style={{width: 20, height: 20}}
-              source={require('../../assets/images/download.png')}
+              source={
+                theme
+                  ? require('../../assets/images/downloads.png')
+                  : require('../../assets/images/download_light.png')
+              }
             />
           )}
         </TouchableOpacity>
@@ -194,15 +201,19 @@ const SearchScreensDetails = () => {
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#0e1116',
+              backgroundColor: theme ? 'white' : 'black',
               borderRadius: 50,
               borderWidth: 3,
-              borderColor: 'white',
+              borderColor: 'grey',
             },
           ]}>
           <Image
             style={{width: 20, height: 20}}
-            source={require('../../assets/images/share.png')}
+            source={
+              theme
+                ? require('../../assets/images/share.png')
+                : require('../../assets/images/share_light.png')
+            }
           />
         </TouchableOpacity>
       </View>
@@ -214,7 +225,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    backgroundColor: 'black',
+    backgroundColor: theme ? 'black' : 'white',
   },
   slide: {
     flex: 1,
