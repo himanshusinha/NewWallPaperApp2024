@@ -1,4 +1,3 @@
-import {useRoute} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
@@ -6,8 +5,6 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  SafeAreaView,
-  Alert,
   TouchableOpacity,
   PermissionsAndroid,
   ToastAndroid,
@@ -19,16 +16,21 @@ import RNFetchBlob from 'rn-fetch-blob';
 import Share from 'react-native-share';
 import RNFS from 'react-native-fs';
 import {useSelector} from 'react-redux';
-let theme = '';
+import {useRoute} from '@react-navigation/native';
+
 const SearchScreensDetails = () => {
-  const route = useRoute();
   const [selectedImages, setSelectedImages] = useState([]);
+  const route = useRoute();
   const selectedImage = route.params.selectedImage;
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef(null);
   const [progress, setProgress] = useState(false);
-  theme = useSelector(state => state.themeReducers);
+  const theme = useSelector(state => state.themeReducers);
+  const [backgroundColor, setBackgroundColor] = useState(
+    theme ? 'black' : 'white',
+  );
+
   useEffect(() => {
     setSelectedImages(route.params.selectedImages || []);
   }, [route.params.selectedImages]);
@@ -45,9 +47,11 @@ const SearchScreensDetails = () => {
         animated: false,
       });
     }
-
-    // Opening the sheetRef once the component is mounted
   }, [selectedImages, selectedImage]);
+
+  useEffect(() => {
+    setBackgroundColor(theme ? 'black' : 'white');
+  }, [theme]);
 
   const handleSwipe = index => {
     setCurrentIndex(index);
@@ -75,13 +79,12 @@ const SearchScreensDetails = () => {
         ToastAndroid.SHORT,
         ToastAndroid.BOTTOM,
       );
-
-      // Open the downloaded file
     } catch (error) {
       setLoading(false);
       console.error('Error downloading image', error);
     }
   };
+
   const downloadFile = async () => {
     try {
       if (Platform.OS === 'android') {
@@ -94,9 +97,10 @@ const SearchScreensDetails = () => {
         );
 
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          Alert.alert(
-            'Permission Denied!',
-            'You need to give storage permission to download the file',
+          ToastAndroid.showWithGravity(
+            'Storage permission denied. Cannot download the file.',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
           );
           return;
         }
@@ -107,6 +111,7 @@ const SearchScreensDetails = () => {
       console.error(err);
     }
   };
+
   const handleShare = async () => {
     try {
       const currentImage = selectedImages[currentIndex];
@@ -129,8 +134,7 @@ const SearchScreensDetails = () => {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, (backgroundColor = theme ? 'black' : 'theme')]}>
+    <View style={[styles.container, {backgroundColor}]}>
       <SwiperFlatList
         ref={flatListRef}
         data={selectedImages}
@@ -161,7 +165,7 @@ const SearchScreensDetails = () => {
           backgroundColor: theme ? 'black' : 'white',
         }}>
         <TouchableOpacity
-          onPress={actualDownload}
+          onPress={downloadFile}
           style={[
             styles.btnContainer,
             {
@@ -178,7 +182,7 @@ const SearchScreensDetails = () => {
             },
           ]}>
           {progress ? (
-            <ActivityIndicator size="large" color={theme ? 'white' : 'black'} />
+            <ActivityIndicator size="large" color={theme ? 'black' : 'white'} />
           ) : (
             <Image
               style={{width: 20, height: 20}}
@@ -191,9 +195,7 @@ const SearchScreensDetails = () => {
           )}
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            handleShare();
-          }}
+          onPress={handleShare}
           style={[
             styles.btnContainer,
             {
@@ -217,7 +219,7 @@ const SearchScreensDetails = () => {
           />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -225,74 +227,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    backgroundColor: theme ? 'black' : 'white',
   },
   slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  errorText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: '50%',
-  },
   image: {
     width: Dimensions.get('window').width,
     height: '100%',
-  },
-  contentContainer: {
-    ...StyleSheet.absoluteFillObject,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    backgroundColor: 'transparent',
-  },
-  closeLineContainer: {
-    alignSelf: 'center',
-  },
-  closeLine: {
-    width: 60,
-    textAlign: 'center',
-    alignItems: 'center',
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: 'white',
-    marginTop: 9,
   },
   btnContainer: {
     height: 50,
     width: 50,
     marginHorizontal: 10,
-  },
-  headerText: {
-    marginTop: 10,
-    marginLeft: 40,
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  buttonListContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginVertical: 10,
-  },
-  whiteText: {
-    color: 'white',
-    fontSize: 15,
-    marginLeft: 10,
-  },
-  wallpaperOption: {
-    marginHorizontal: 10,
-    height: 45,
-    display: 'flex',
-    flexDirection: 'row',
-    paddingLeft: 10,
-    gap: 55,
-    alignItems: 'center',
-    marginBottom: 10,
-    backgroundColor: '#36414F',
-    borderRadius: 20,
   },
 });
 

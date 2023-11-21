@@ -56,8 +56,8 @@ const CustomDrawerContent = props => {
         labelStyle={{color: theme ? 'white' : 'black'}}
         icon={() => (
           <Switch
-            trackColor={{false: 'lightgrey', true: 'grey'}}
-            thumbColor={theme ? 'white' : 'black'}
+            trackColor={{false: 'lightgrey', true: 'lightgrey'}}
+            thumbColor={theme ? 'black' : 'lightgrey'}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={theme}

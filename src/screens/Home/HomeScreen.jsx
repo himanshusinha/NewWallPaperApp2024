@@ -17,6 +17,7 @@ const HomeScreen = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const theme = useSelector(state => state.themeReducers);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -43,8 +44,6 @@ const HomeScreen = () => {
       if (jsonRes.photos.length > 0) {
         setData([...data, ...jsonRes.photos]);
         setPage(page + 1);
-      } else {
-        setLoading(false);
       }
     } catch (err) {
       console.log(err);
@@ -111,7 +110,17 @@ const HomeScreen = () => {
       </View>
     );
   };
+
   const Tab = createMaterialTopTabNavigator();
+
+  if (loading) {
+    // Render loading indicator or an empty view while data is loading
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" color={theme ? 'white' : 'black'} />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: theme ? 'black' : 'white'}}>
@@ -128,11 +137,13 @@ const HomeScreen = () => {
                 : 'black',
           },
           tabBarIndicatorStyle: {
-            backgroundColor: theme ? 'white' : 'black',
+            backgroundColor: 'transparent',
           },
           tabBarStyle: {
             backgroundColor: theme ? 'black' : 'white',
           },
+          tabBarInactiveTintColor: 'transparent', // Set the inactive tab color here
+          tabBarActiveTintColor: 'white',
         })}>
         <Tab.Screen name="Home" component={Tab1Screen} />
         <Tab.Screen name="Category" component={Tab2Screen} />

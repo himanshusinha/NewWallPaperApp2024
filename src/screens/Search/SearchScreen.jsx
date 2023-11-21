@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import ItemSearch from '../../components/ItemSearch';
-import LottieView from 'lottie-react-native';
 import {useSelector} from 'react-redux';
 
 let per_page = 20;
