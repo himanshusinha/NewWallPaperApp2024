@@ -16,87 +16,32 @@ This is WallpaperApp 2024 using third party api of pexel
 - share image with friends etc
 - user can change theme of app from dark to light mode of entire app 
 
-https://postimg.cc/gallery/qRLN5gD
 
 [https://drive.google.com/file/d/1YVecdkn-VMzpf0RUU2yYuZtw158XeyJi/view?usp=sharing](https://drive.google.com/file/d/1UG69U9vzcZpRH0iYWUCsMaLip-3A9ZOy/view?usp=sharing)
-=======
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-
-## Step 1: Start the Metro Server
-
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 >>>>>>> f7a9b02 (latest)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 18 44](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/91ceb09e-fdde-4961-950d-305b915a20e7)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 18 37](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/e7a4d956-1db2-43f1-ab62-f3b440eacdec)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 18 28](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/2be91944-a71f-42d4-be09-ae0fbd66b300)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 18 15](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/2014ba3e-bed7-480f-a055-80de3b97989e)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 18 04](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/89db2d92-59b0-48d6-8bba-3a1208e0c566)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 17 49](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/42330db9-4022-4fec-85d8-b537282a2823)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 17 38](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/dec00e0b-7270-4b0d-9424-14575f93e456)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 17 32](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/5609a782-73fc-4399-9449-ad8838edad3d)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 17 17](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/250fb3c9-fe62-485e-859f-1849b28794db)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 17 14](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/eed53fef-6470-4c52-aaea-71752e292a3e)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 17 08](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/0a5ba02f-2298-4628-bf9f-2b5758de0a41)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 16 58](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/56b564f0-e212-4fda-a101-42720a223d5e)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 16 17](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/132e2346-995d-4f52-898f-5edfe6d01558)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 16 02](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/d00db8da-beec-469a-b954-2a56a4fc072d)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 15 19](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/934e3fee-c9d1-4235-af43-01a0ff593c83)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 14 54](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/926e1dcf-e5f1-4529-a6c2-cdbf57dfa1d6)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 14 44](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/a18e008f-c05b-47d3-bc83-a6a19d603168)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 14 20](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/36dd29ab-ce8d-47fd-8774-b7452588ec47)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 14 06](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/bb13383f-804c-4978-8f75-e6642180bf3d)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 13 50](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/a72b95c9-252e-41ce-931f-9dbe8a389f1e)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 13 28](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/1fd45dc7-1f0e-4986-bb6d-4f1e14501d99)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 13 09](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/81187646-6449-4ae7-9636-e9f216735533)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 12 49](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/cd0dfef4-eaf6-49d4-bd85-13e9988b0c06)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 11 58](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/d02aca41-e4f1-4dd5-b757-f5674f1d5339)
