@@ -10,7 +10,6 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToFavourite} from '../redux/actions';
 import FastImage from 'react-native-fast-image';
-import colors from '../constants/colors';
 
 const ItemHome = ({item}) => {
   const dispatch = useDispatch();

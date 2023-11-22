@@ -39,7 +39,7 @@ const DrawerNavigation = () => {
           width: '90%',
           fontWeight: 'bold',
         }}>
-        WallPaper App 2024
+        WallPaper
       </Text>
     </View>
   );

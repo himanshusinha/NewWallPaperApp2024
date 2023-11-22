@@ -29,7 +29,7 @@ const SplashScreen = () => {
           fontSize: 30,
           fontWeight: 'bold',
         }}>
-        WallPaper App 2024
+        WallPaper
       </Text>
     </View>
   );
