@@ -17,8 +17,12 @@ This is WallpaperApp 2024 using third party api of pexel
 - user can change theme of app from dark to light mode of entire app 
 
 
-[https://drive.google.com/file/d/1YVecdkn-VMzpf0RUU2yYuZtw158XeyJi/view?usp=sharing](https://drive.google.com/file/d/1UG69U9vzcZpRH0iYWUCsMaLip-3A9ZOy/view?usp=sharing)
+ 
+Apk link 
 
+https://drive.google.com/file/d/1-BCiG0PJpx1GrSnfJ0ZC6veuqUzC267T/view?usp=sharing
+
+Screenshots
 
 >>>>>>> f7a9b02 (latest)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-11-22 at 11 18 44](https://github.com/himanshusinha/NewWallPaperApp2024/assets/3622434/91ceb09e-fdde-4961-950d-305b915a20e7)
